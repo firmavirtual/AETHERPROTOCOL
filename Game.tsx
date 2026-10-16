@@ -518,7 +518,7 @@ try {
   // Preload is optional
 }
 
-// 3D Soldier Model for the Human Player Bot
+// 3D Soldier Model for the Human Player Bot — enhanced procedural walk animation
 function PlayerSoldierMesh({
   unit,
   secondaryColor,
@@ -527,17 +527,42 @@ function PlayerSoldierMesh({
   secondaryColor: string;
 }) {
   const gltf = useGLTF(SOLDIER_MODEL_URL);
-  // Procedural subtle running bob and tilt
-  const strideY = Math.abs(Math.sin(unit.walkCycle * 8)) * 0.12;
-  const tiltZ = Math.sin(unit.walkCycle * 8) * 0.05;
+
+  // Enhanced walk cycle — soldier.glb has no skeleton animations, so we
+  // drive the whole model procedurally with several overlapping motions.
+  const walkPhase = unit.walkCycle * 8;
+
+  // 1. Vertical body-bob: double-bounce per full stride (heel-strike rhythm)
+  const strideY = Math.abs(Math.sin(walkPhase)) * 0.22;
+
+  // 2. Lateral sway: weight shift left/right each step
+  const sideSwayZ = Math.sin(walkPhase) * 0.10;
+
+  // 3. Forward lean: soldier leans into the run (constant tilt on X)
+  const forwardLeanX = -0.10;
+
+  // 4. Footstep compression: body squashes slightly on ground contact
+  const groundContact = Math.abs(Math.sin(walkPhase));
+  const scaleY = 1.0 - (1 - groundContact) * 0.04;
+
+  // 5. Head counter-sway: subtle opposite motion for realism (applied on inner group)
+  const headBob = Math.abs(Math.sin(walkPhase * 2)) * 0.03;
 
   return (
-    <group position={[0, 1.15 + strideY, 0]} rotation={[0, 0, tiltZ]} scale={[1.15, 1.15, 1.15]}>
+    <group
+      position={[0, 1.05 + strideY + headBob, 0]}
+      rotation={[forwardLeanX, 0, sideSwayZ]}
+      scale={[1.15, 1.15 * scaleY, 1.15]}
+    >
       <Clone object={gltf.scene} castShadow receiveShadow />
-      {/* Tactical energy beacon ring at feet */}
+      {/* Tactical energy beacon ring at feet — pulses with footstep */}
       <mesh position={[0, -0.98, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.35, 0.52, 16]} />
-        <meshBasicMaterial color={secondaryColor} transparent opacity={0.65} />
+        <ringGeometry args={[0.33, 0.50, 16]} />
+        <meshBasicMaterial
+          color={secondaryColor}
+          transparent
+          opacity={0.45 + groundContact * 0.35}
+        />
       </mesh>
     </group>
   );
@@ -552,22 +577,29 @@ function PlayerFighterMesh({
   secondaryColor: string;
 }) {
   const gltf = useGLTF(FIGHTER_MODEL_URL);
-  // Dynamic banking and pitch in flight
-  const rollZ = Math.sin(unit.walkCycle * 4) * 0.06;
-  const pitchX = Math.cos(unit.walkCycle * 4) * 0.03;
 
+  // Dynamic banking and pitch in flight
+  const rollZ = Math.sin(unit.walkCycle * 4) * 0.07;
+  const pitchX = Math.cos(unit.walkCycle * 3) * 0.04;
+
+  // The GLB model's nose points toward +Z in model-space.
+  // The outer UnitMesh group already applies unit.rotY so that -Z = forward.
+  // We add Math.PI to flip the model so its +Z nose becomes the local -Z
+  // that the outer rotation expects — no extra flip needed, rotY handles it.
+  // Exhausts sit at +Z (rear of aircraft after the Math.PI flip becomes -Z
+  // in world space, i.e. behind the aircraft as it moves forward).
   return (
-    <group position={[0, -0.3, 0]} rotation={[pitchX, Math.PI, rollZ]} scale={[0.35, 0.35, 0.35]}>
+    <group position={[0, -0.3, 0]} rotation={[pitchX, 0, rollZ]} scale={[0.35, 0.35, 0.35]}>
       <Clone object={gltf.scene} castShadow receiveShadow />
 
-      {/* Jet Engine Ion Glow Exhausts */}
-      <mesh position={[-1.25, 0.5, -4.8]}>
-        <sphereGeometry args={[0.35, 8, 8]} />
-        <meshStandardMaterial color="#ffffff" emissive={secondaryColor} emissiveIntensity={4.5} />
+      {/* Ion engine exhausts — at +Z rear of model (tail direction) */}
+      <mesh position={[-1.25, 0.5, 7.5]}>
+        <sphereGeometry args={[0.45, 8, 8]} />
+        <meshStandardMaterial color="#ffffff" emissive={secondaryColor} emissiveIntensity={5.0} />
       </mesh>
-      <mesh position={[1.25, 0.5, -4.8]}>
-        <sphereGeometry args={[0.35, 8, 8]} />
-        <meshStandardMaterial color="#ffffff" emissive={secondaryColor} emissiveIntensity={4.5} />
+      <mesh position={[1.25, 0.5, 7.5]}>
+        <sphereGeometry args={[0.45, 8, 8]} />
+        <meshStandardMaterial color="#ffffff" emissive={secondaryColor} emissiveIntensity={5.0} />
       </mesh>
     </group>
   );
