@@ -42,25 +42,36 @@ export function usePlayground() {
 
     const initSDK = async () => {
       try {
-        const isSandboxPreview =
+        // Use the real SDK only when running inside the official Google Play
+        // Playground embed. On any other host (localhost, Netlify, etc.) use
+        // the Fake SDK so the game boots without waiting on an SDK that will
+        // never resolve outside that sandbox.
+        const isGooglePlaygroundEmbed =
+          (window as any).__PLAYGROUND_PREVIEW__ === true ||
           window.location.hostname === 'test.com' ||
-          (window as any).__PLAYGROUND_PREVIEW__ === true;
+          window.parent !== window; // inside an iframe → likely the sandbox
 
-        if (isSandboxPreview) {
+        if (isGooglePlaygroundEmbed) {
+          try {
+            await loadScript();
+          } catch {
+            // real SDK failed – fall through to Fake below
+          }
+        }
+
+        // If the real SDK didn't load (or we're outside the sandbox), use Fake
+        if (!(window as any).PlaygroundSDK) {
           console.log(
-            '🔌 [usePlayground] Local or Preview environment. Loading Fake SDK...',
+            '🔌 [usePlayground] Running outside Google Playground – using Fake SDK.',
           );
           // @ts-ignore - Dynamic import
           const module = await import('./playground-fake');
           (window as any).PlaygroundSDK = module.FakePlaygroundSDK;
-        } else {
-          await loadScript();
         }
 
         if ((window as any).PlaygroundSDK) {
           sdkRef.current = new (window as any).PlaygroundSDK();
 
-          // Wrap callbacks to fire whatever function is currently in the Ref
           await sdkRef.current.init(
             (event: any) => onGameEventRef.current?.(event),
             (presence: any) => onPresenceEventRef.current?.(presence),
@@ -70,9 +81,11 @@ export function usePlayground() {
           setIsReady(true);
         } else {
           console.error('Playground SDK class not found after script load.');
+          setIsReady(true); // render the game anyway
         }
       } catch (error) {
         console.error('Playground SDK initialization failed:', error);
+        setIsReady(true); // render the game even if SDK fails
       }
     };
 
