@@ -1,0 +1,83 @@
+{
+  "schema": [
+    {
+      "name": "startingAether",
+      "type": "number",
+      "label": "Starting Aether",
+      "default": 280,
+      "min": 100,
+      "max": 1000,
+      "step": 20
+    },
+    {
+      "name": "baseIncomeRate",
+      "type": "number",
+      "label": "Base Income Rate",
+      "default": 16,
+      "min": 5,
+      "max": 50,
+      "step": 1
+    },
+    {
+      "name": "nodeIncomeBonus",
+      "type": "number",
+      "label": "Node Income Bonus",
+      "default": 9,
+      "min": 2,
+      "max": 30,
+      "step": 1
+    },
+    {
+      "name": "maxSupply",
+      "type": "number",
+      "label": "Max Supply Pop",
+      "default": 90,
+      "min": 30,
+      "max": 150,
+      "step": 10
+    },
+    {
+      "name": "baseMaxHp",
+      "type": "number",
+      "label": "Base Max HP",
+      "default": 3200,
+      "min": 1000,
+      "max": 6000,
+      "step": 100
+    },
+    {
+      "name": "orbitalChargeRate",
+      "type": "number",
+      "label": "Orbital Charge Rate",
+      "default": 2.0,
+      "min": 0.5,
+      "max": 10.0,
+      "step": 0.5
+    },
+    {
+      "name": "autoAdvanceDefault",
+      "type": "boolean",
+      "label": "Auto Advance Default",
+      "default": true
+    },
+    {
+      "name": "sunIntensity",
+      "type": "number",
+      "label": "Sun Intensity",
+      "default": 3.6,
+      "min": 1.0,
+      "max": 8.0,
+      "step": 0.2
+    }
+  ],
+  "values": {
+    "startingAether": 280,
+    "baseIncomeRate": 16,
+    "nodeIncomeBonus": 9,
+    "maxSupply": 90,
+    "baseMaxHp": 3200,
+    "orbitalChargeRate": 2.0,
+    "autoAdvanceDefault": true,
+    "sunIntensity": 3.6
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "title": "Aether Protocol",
+  "hook": "Command mechas in arctic warfare",
+  "game_overview": "Command futuristic strike forces in fast-paced 3D RTS battles across an icy arctic tundra to destroy the enemy command base.",
+  "artstyle": "isometric-sim",
+  "genre": "action_adventure",
+  "winning_condition": "Destroy the enemy command fortress by capturing tactical Aether nodes and deploying advanced battle units.",
+  "losing_condition": "Your central command fortress is overwhelmed and reduced to zero structural integrity.",
+  "player_mode": "single_player",
+  "supported_orientations": [
+    "landscape",
+    "wide"
+  ],
+  "input_methods": [
+    "mouse",
+    "touch",
+    "keyboard"
+  ],
+  "score_options": {
+    "score_type": "points",
+    "score_order": "higher_is_better"
+  },
+  "low_end_device_support": false,
+  "mobile_playable": true,
+  "language": [
+    "en"
+  ],
+  "content_descriptors": [],
+  "controls": [
+    {
+      "input": "Left Mouse Click / Tap",
+      "action": "Select friendly units, interact with tactical UI buttons, or target orbital abilities."
+    },
+    {
+      "input": "Left Mouse Drag / Box Selection",
+      "action": "Marquee box select multiple military units across the battlefield."
+    },
+    {
+      "input": "Right Mouse Click / Minimap Tap",
+      "action": "Issue move or attack orders to selected units towards target coordinates or enemy structures."
+    },
+    {
+      "input": "Q, W, E, R, T Keys / Production Deck Buttons",
+      "action": "Produce Striker Bots, Artillery Tanks, Raptor Fighters, Atlas Titans, and Aegis Cruisers."
+    },
+    {
+      "input": "Y Key / Upgrade Button",
+      "action": "Upgrade technological tier to unlock advanced combat units and army stat multipliers."
+    },
+    {
+      "input": "Spacebar / Orbital Beam Button",
+      "action": "Deploy devastating orbital strike weapon upon reaching full satellite charge."
+    },
+    {
+      "input": "A Key / All Units Button",
+      "action": "Quickly select all active friendly units on the battlefield."
+    },
+    {
+      "input": "S Key / Focus Base Button",
+      "action": "Instantly pan the camera back to friendly command headquarters."
+    },
+    {
+      "input": "Arrow Keys / Edge Pan / Minimap Drag",
+      "action": "Pan the tactical isometric camera across the arctic tundra."
+    },
+    {
+      "input": "Virtual Touch Deck & Minimap",
+      "action": "Touch buttons for unit deployment, group selection, camera panning, and auto-advance toggle on mobile."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Design Pillars",
+      "content": "1. Blitz Tactical Warfare: Rapid 3-8 minute matches with intense macro economy and responsive micro unit control. 2. Arctic Visual Clarity: High-contrast cobalt and crimson mech chassis contrasting against crisp procedural snow dunes, glacial ice, and dynamic blue-tinted shadows. 3. Zero-Lag Procedural Simulation: Pure procedural 3D meshes, custom particle pyrotechnics, and synthesized Web Audio soundscapes running at 60 FPS.",
+      "summary": "Core architectural principles driving the RTS experience."
+    },
+    {
+      "title": "Core Loop",
+      "content": "The player establishes base defense, harvests Aether passively and through 3 contestable capture nodes (North, Center, South), produces combined-arms squads (Strikers, Artillery, Air Fighters, Titans, Battlecruisers), upgrades Tech Tiers, commands tactical assaults, and eliminates the enemy fortress while countering hostile AI incursions and orbital strikes.",
+      "summary": "The moment-to-moment RTS engagement cycle."
+    },
+    {
+      "title": "Core Mechanics",
+      "content": "1. Dual Resource & Supply Economy: Influx of Aether and 90-unit cap governing unit manufacturing and tech upgrades. 2. Three-Node Territory Control: Tactical capture radius mechanics accelerating Aether income and Orbital Beam satellite charge. 3. Combined Arms Synergy: Ground biped mechas, heavy splash artillery, high-altitude aerial VTOLs, beam-weapon colossi, and capital dreadnoughts with soft-collision flocking formations. 4. Orbital Superweapon: 900m vertical tactical energy beam dealing area-of-effect destruction on demand.",
+      "summary": "Key interactive RTS systems."
+    },
+    {
+      "title": "3D Camera & Movement Alignment",
+      "content": "3D Coordinate System: Three.js right-handed coordinate space (+Y is Up, +X is Right/East, -Z is Forward/North, +Z is South). Camera Perspective: Orthographic isometric camera with 4 smooth rotatable quadrant angles, zoom range (0.55x to 2.2x), and target panning. Movement Dynamics: Kinematic flocking with grid formation offsets, soft separation avoidance, ground plane clamping at Y=0, and aerial cruising heights (Y=32 for fighters, Y=58 for cruisers). Asset Alignment: All turrets, mecha chassis, and vehicles author with -Z as primary forward direction.",
+      "summary": "Rotatable isometric perspective with precise coordinate kinematics."
+    },
+    {
+      "title": "3D Scene & Environment Structure",
+      "content": "3D Scene Separation: High-intensity physical 3-point lighting featuring crisp cool hemisphere sky bounce, directional low-angle morning sunlight casting long blue shadows, and blue rim fill light. Topography: Procedural vertex-elevated terrain with coastal bay depression, rolling wind-swept sastrugi snow dunes, glacial ice patches, dark basalt crags, perimeter pine forests, and persistent scorch craters. Hazard Affordance: Red tactical range rings, pulsing capture node boundaries, and neon laser beam tracers.",
+      "summary": "Arctic tundra coastal biome with procedural textures and physical lighting."
+    },
+    {
+      "title": "Characters & Enemies",
+      "content": "Player commands the Aegis Coalition featuring Cobalt Blue armor and regenerative energy shields (+4.8 shield/s). Opposing AI controls the Kronos Dominion featuring Crimson Red chassis and structural regeneration (+HP/s). Unit types include Tier 1 Striker Bots, Manticore/Scorcher Tanks, Raptor/Vulture Air Gunships, Tier 2 Atlas/Omega Titans, and Tier 3 Aegis/Sovereign Battlecruisers. Tactical AI evaluates tech advancement, multi-squad territory capture, and coordinated base assaults across 3 difficulty tiers (Recruit, Commander, Archon).",
+      "summary": "Asymmetrical faction unit rosters and tactical AI."
+    },
+    {
+      "title": "Fairness Tools",
+      "content": "Interactive 2D radar minimap with camera frustum box, floating unit health and shield bars, territory node dominance status lamps, auto-advance rally toggle for newly produced units, and instant Epic Wave sandbox escalation toggle.",
+      "summary": "Tactical visual assists and status indicators."
+    },
+    {
+      "title": "Juice & Game Feel",
+      "content": "Anticipation Juice: Animated weapon barrel recoil, charging orbital reticle glows, and walking cycle torso sway. State Change Juice: Emissive reactor core pulsing, continuous laser beam meshes with twin glowing coronas, and ion engine particle trails. Impact Juice: Screen shake on artillery impact, expanding volumetric fireball spheres, rising carbon smoke columns, and persistent terrain scorch decals paired with synthesized multi-oscillator audio.",
+      "summary": "High-impact visual and auditory combat feedback."
+    },
+    {
+      "title": "Social Mechanics & Audience",
+      "content": "Designed for real-time strategy enthusiasts. Features combat telemetry timers, kill counters, rank progression (Bronze to Grand Archon), and external leaderboard score submission.",
+      "summary": "Singleplayer RTS campaign and skirmish progression."
+    },
+    {
+      "title": "Accessibility",
+      "content": "Three selectable lighting profiles (Arctic Tundra, Dusk Glow, High Noon), tactical unit overhead healthbar toggles, full keyboard shortcut support alongside point-and-click/touch interfaces, and master audio mute controls.",
+      "summary": "Adjustable visual and audio assists."
+    },
+    {
+      "title": "Structural Integrity",
+      "content": "Battle.net style Sci-Fi Orbital Terminal Menu -> Skirmish Configuration (Faction, Difficulty, Lighting Mode) -> 3D RTS Battle Arena -> Victory / Defeat Tactical Debriefing with seamless instant rematch capability.",
+      "summary": "Cohesive battle command UI and state flow."
+    },
+    {
+      "title": "Virtual Touch Controls Implementation",
+      "content": "Mobile HUD featuring bottom-anchored touch production deck with touch-none class, minimap touch panning and waypoint dispatching, floating Auto-Advance and All-Units toggles with pointer-events-auto, and multi-touch box drag selection.",
+      "summary": "Comprehensive mobile touch layout and gesture handling."
+    }
+  ]
+}
